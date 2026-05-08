@@ -4,8 +4,6 @@ import android.os.Bundle;
 
 import android.content.Intent;
 
-import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.luckycasino.R;
@@ -28,31 +26,14 @@ public class  HomescreenActivity extends AppCompatActivity implements Homescreen
             startActivity(intent);
         });
 
-        findViewById(R.id.buttonManager).setOnClickListener(v -> presenter.onManager());
         findViewById(R.id.buttonPlayer).setOnClickListener(v -> presenter.onPlayer());
 
-        View btnRegister = findViewById(R.id.btnGoToRegister);
-        if (btnRegister != null) {
-            btnRegister.setOnClickListener(v -> {
-                Intent intent = new Intent(this, view.Register.RegisterActivity.class);
-                startActivity(intent);
-            });
-        }
     }
-
-
-    @Override
-    public void managerLogin() {
-        Intent intent = new Intent(this, view.Manager.ManagerActivity.class);
-        intent.putExtra("ROLE_EXPECTED", "Admin");
-        startActivity(intent);
-    }
-
 
     @Override
     public void playerLogin(String username) {
         Intent intent = new Intent(this, view.Customer.CustomerActivity.class);
-        intent.putExtra("customer_id", customerId);
+        intent.putExtra("customer_id", username);
         startActivity(intent);
     }
 

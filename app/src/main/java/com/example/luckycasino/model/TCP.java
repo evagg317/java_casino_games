@@ -10,7 +10,7 @@ import java.net.Socket;
  */
 public class TCP {
 
-    private static final String MASTER_HOST = "192.168.1.1"; // αλλαξε με την IP του Master
+    private static final String MASTER_HOST = "192.168.1.1";
     private static final int MASTER_PORT = 8080;
 
     /**
@@ -24,7 +24,7 @@ public class TCP {
         Socket s = new Socket(MASTER_HOST, MASTER_PORT);
 
         DataOutputStream out = new DataOutputStream(s.getOutputStream());
-        DataInputStream  in  = new DataInputStream(s.getInputStream());
+        DataInputStream in = new DataInputStream(s.getInputStream());
 
         // στέλνει το request
         out.writeUTF(serializedRequest);
