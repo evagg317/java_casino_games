@@ -5,24 +5,11 @@ public class HomescreenPresenter {
     public HomescreenPresenter(HomescreenView view) {
         this.view = view;
     }
-
-    public void attemptLogin(String username) {
-
-        if (username.isEmpty()) {
-            view.onPlayerLogin(false, "Please enter a valid username", "");
+    public void onPlayer(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            view.showError("Please enter your username");
             return;
         }
-
-        boolean success = true;
-
-        if (success) {
-            view.onPlayerLogin(true, "Log in successfull", username);
-        } else {
-            view.showError("Login failed");
-        }
-    }
-    public void onPlayer() {
         view.playerLogin(username);
     }
-
 }

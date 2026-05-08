@@ -1,45 +1,38 @@
 package com.example.luckycasino.view.Homescreen;
-
 import android.os.Bundle;
-
 import android.content.Intent;
-
+import com.google.android.material.textfield.TextInputEditText;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.luckycasino.R;
 
 public class  HomescreenActivity extends AppCompatActivity implements HomescreenView {
     private HomescreenPresenter presenter;
+    private TextInputEditText usernameInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
 
-        presenter = new HomescreenPresenter(
-                this
-        );
+        presenter = new HomescreenPresenter(this);
 
-        findViewById(R.id.buttonPlayer).setOnClickListener(v -> {
-            Intent intent = new Intent(this, view.User.UserActivity.class);
-            intent.putExtra("ROLE_EXPECTED", "Player");
-            startActivity(intent);
+        usernameInput = findViewById(R.id.txt_username);
+
+        findViewById(R.id.button_login).setOnClickListener(v -> {
+            String username = usernameInput.getText().toString();
+            presenter.onPlayer(username);
         });
-
-        findViewById(R.id.buttonPlayer).setOnClickListener(v -> presenter.onPlayer());
-
     }
 
     @Override
     public void playerLogin(String username) {
-        Intent intent = new Intent(this, view.Customer.CustomerActivity.class);
+        //paei stin epomeni othoni
+        Intent intent = new Intent(this, FilterGamesActivity.class);
         intent.putExtra("customer_id", username);
         startActivity(intent);
     }
-
     @Override
     public void showError(String message) {
         android.widget.Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT).show();
     }
-
 }
