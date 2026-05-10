@@ -1,6 +1,8 @@
 package com.example.luckycasino.view.Homescreen;
 import android.os.Bundle;
 import android.content.Intent;
+
+import com.example.luckycasino.view.GamesLobby.GamesLobbyActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.luckycasino.R;
@@ -27,7 +29,7 @@ public class  HomescreenActivity extends AppCompatActivity implements Homescreen
     @Override
     public void playerLogin(String username) {
         //paei stin epomeni othoni
-        Intent intent = new Intent(this, FilterGamesActivity.class);
+        Intent intent = new Intent(this, GamesLobbyActivity.class);
         intent.putExtra("customer_id", username);
         startActivity(intent);
     }

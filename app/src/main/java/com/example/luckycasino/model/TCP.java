@@ -10,7 +10,8 @@ import java.net.Socket;
  */
 public class TCP {
 
-    private static final String MASTER_HOST = "192.168.1.1";
+    //private static final String MASTER_HOST = "192.168.1.1";
+    private static final String MASTER_HOST = "10.0.2.2";
     private static final int MASTER_PORT = 8080;
 
     /**
