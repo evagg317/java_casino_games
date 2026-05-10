@@ -29,7 +29,7 @@ public class PlaceBetPresenter {
         try {
             double betAmount = Double.parseDouble(betAmountStr);
 
-            // trexo diktio de ksexoristo thread
+            // trexo diktio se ksexoristo thread
             new Thread(() -> {
                 try {
                     Request req = new Request(Request.PLAY, playerId, gameName, betAmount);
