@@ -72,14 +72,14 @@ public class ShowAllGamesActivity extends AppCompatActivity implements ShowAllGa
         gamesContainer     = findViewById(R.id.games_container);
 
         // Spinner για betCategory
-        ArrayAdapter<String> betAdapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> betAdapter = new ArrayAdapter<>(spinnerBetCategory.getContext(),
                 android.R.layout.simple_spinner_item,
                 new String[]{"Any", "$", "$$", "$$$"});
         betAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBetCategory.setAdapter(betAdapter);
 
         // Spinner για riskLevel
-        ArrayAdapter<String> riskAdapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> riskAdapter = new ArrayAdapter<>(spinnerRiskLevel.getContext(),
                 android.R.layout.simple_spinner_item,
                 new String[]{"Any", "low", "medium", "high"});
         riskAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -164,23 +164,23 @@ public class ShowAllGamesActivity extends AppCompatActivity implements ShowAllGa
                     return;
                 }
 
-                // δημιουργεί κουμπί για κάθε παιχνίδι
+                // dimiourgei koumpi gia kathe paixnidi
                 for (String gameStr : games) {
                     String[] parts = gameStr.split(",");
                     if (parts.length < 6) continue;
 
-                    String gameName    = parts[0];
-                    String provider    = parts[1];
-                    int    stars       = 0;
+                    String gameName = parts[0];
+                    String provider = parts[1];
+                    int stars = 0;
                     try { stars = Integer.parseInt(parts[2].trim()); } catch (Exception ignored) {}
-                    String minBet      = parts[3];
-                    String riskLevel   = parts[5];
+                    String minBet = parts[3];
+                    String riskLevel = parts[5];
                     String betCategory = parts.length > 6 ? parts[6] : "";
 
                     final String finalGameName = gameName;
-                    final int    finalStars    = stars;
+                    final int finalStars = stars;
 
-                    // card layout για κάθε παιχνίδι
+                    // card layout
                     LinearLayout card = new LinearLayout(ShowAllGamesActivity.this);
                     card.setOrientation(LinearLayout.VERTICAL);
                     card.setPadding(24, 24, 24, 24);
@@ -194,12 +194,79 @@ public class ShowAllGamesActivity extends AppCompatActivity implements ShowAllGa
                     card.setLayoutParams(cardParams);
 
                     // τίτλος παιχνιδιού
+                    //android.widget.TextView txtName = new android.widget.TextView(ShowAllGamesActivity.this);
+                    //txtName.setText(gameName);
+                    //txtName.setTextSize(18f);
+                    //txtName.setTextColor(0xFFFFFFFF);
+                    //txtName.setPadding(0, 0, 0, 8);
+                    //card.addView(txtName);
+
+                    // orizontio header kai asteria
+
+                    //(LinearLayout)
+                    LinearLayout headerLayout = new LinearLayout(ShowAllGamesActivity.this);
+                    headerLayout.setOrientation(LinearLayout.HORIZONTAL);
+                    headerLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    ));
+                    headerLayout.setGravity(android.view.Gravity.CENTER_VERTICAL);
+                    headerLayout.setPadding(0, 0, 0, 8);
+
+                    //titlos paixnidiou
                     android.widget.TextView txtName = new android.widget.TextView(ShowAllGamesActivity.this);
-                    txtName.setText(gameName);
-                    txtName.setTextSize(18f);
+                    txtName.setText(finalGameName);
+                    txtName.setTextSize(20f);
                     txtName.setTextColor(0xFFFFFFFF);
-                    txtName.setPadding(0, 0, 0, 8);
-                    card.addView(txtName);
+                    txtName.setTypeface(null, android.graphics.Typeface.BOLD); // Κάντο πιο έντονο να ξεχωρίζει
+
+                    // layout_weight=1.0f gia topothesia asterion
+                    LinearLayout.LayoutParams nameParams = new LinearLayout.LayoutParams(
+                            0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f
+                    );
+                    txtName.setLayoutParams(nameParams);
+                    headerLayout.addView(txtName);
+
+                    //asterakia
+                    android.widget.RatingBar ratingBar = new android.widget.RatingBar(ShowAllGamesActivity.this);
+                    ratingBar.setNumStars(5);
+                    ratingBar.setStepSize(1.0f);
+
+
+                    // topikos xoros apothikeusis "LuckyCasinoRatings"
+                    android.content.SharedPreferences prefs = getSharedPreferences("LuckyCasinoRatings", MODE_PRIVATE);
+
+                    //monadiko kleidi gia kathe paikti kai paixnidi
+                    String ratingKey = customerId + "_" + finalGameName;
+
+                    // diabazo vathmologia allios 0
+                    int savedRating = prefs.getInt(ratingKey, 0);
+                    ratingBar.setRating(savedRating);
+
+                    // emfanisi
+                    ratingBar.setScaleX(0.7f);
+                    ratingBar.setScaleY(0.7f);
+                    ratingBar.setPivotX(0f);
+                    ratingBar.setPivotY(0f);
+
+                    // xristis allazei vathmo
+                    ratingBar.setOnRatingBarChangeListener(new android.widget.RatingBar.OnRatingBarChangeListener() {
+                        @Override
+                        public void onRatingChanged(android.widget.RatingBar rb, float rating, boolean fromUser) {
+                            if (fromUser) {
+                                int givenStars = (int) rating;
+
+                                //apothikeusi genika
+                                prefs.edit().putInt(ratingKey, givenStars).apply();
+
+                                // apothikeusi ston server
+                                presenter.rateGame(customerId, finalGameName, givenStars);
+                            }
+                        }
+                    });
+                    headerLayout.addView(ratingBar);
+
+                    card.addView(headerLayout);
 
                     // πληροφορίες
                     android.widget.TextView txtInfo = new android.widget.TextView(ShowAllGamesActivity.this);

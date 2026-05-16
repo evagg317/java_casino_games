@@ -101,7 +101,31 @@ public class ShowAllGamesPresenter {
             }
             return result;
         }
+
+    /**
+     * Στέλνει τη βαθμολογία του παίκτη στον Server.
+     */
+    public void rateGame(String customerId, String gameName, int stars) {
+        new Thread(() -> {
+            try {
+                // Χρησιμοποιούμε τον Constructor που έχεις ήδη φτιάξει!
+                Request req = new Request(Request.RATE_GAME, customerId, gameName, stars);
+
+                TCP tcp = new TCP();
+                String rawResponse = tcp.sendRequest(req.serialize());
+                Response resp = Response.deserialize(rawResponse);
+
+                if (resp.isSuccess()) {
+                    view.showError("Ευχαριστούμε! Η βαθμολογία (" + stars + "★) αποθηκεύτηκε.");
+                } else {
+                    view.showError("Αποτυχία: " + resp.getMessage());
+                }
+            } catch (Exception e) {
+                view.showError("Σφάλμα σύνδεσης: " + e.getMessage());
+            }
+        }).start();
     }
+}
 
 
 

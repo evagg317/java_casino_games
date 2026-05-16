@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:backgroundTint="#DC312E2E">
+    android:layout_height="match_parent">
 
-    <!-- Background image ίδιο με homescreen -->
     <ImageView
-        android:id="@+id/background_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.3"
-        android:scaleType="centerCrop"
         android:src="@drawable/roulettebckg2"
-        android:layout_weight="1"/>
+        android:scaleType="centerCrop" />
 
-    <!-- Overlay με το περιεχόμενο -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="0"
+        android:background="#B3000000"
         android:padding="16dp">
 
-        <!-- Τίτλος -->
+        <ImageView
+            android:id="@+id/lobby_logo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="start"
+            android:src="@drawable/logo_transparent"
+            android:layout_marginBottom="10dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,6 @@
             android:gravity="center"
             android:paddingBottom="12dp"/>
 
-        <!-- Φίλτρα -->
         <EditText
             android:id="@+id/et_min_stars"
             android:layout_width="match_parent"
@@ -51,17 +50,19 @@
             android:id="@+id/spinner_bet_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FFFFFF"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/white"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
         <Spinner
             android:id="@+id/spinner_risk_level"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FFFFFF"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
             android:layout_marginBottom="8dp"/>
 
-        <!-- Κουμπιά -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,7 +90,6 @@
 
         </LinearLayout>
 
-        <!-- ProgressBar -->
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
@@ -98,7 +98,6 @@
             android:visibility="gone"
             android:layout_marginBottom="8dp"/>
 
-        <!-- ScrollView με τα παιχνίδια -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -114,4 +113,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>
