@@ -1,6 +1,5 @@
 package com.example.luckycasino.view.GamesLobby;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -66,14 +65,13 @@ public class GamesLobbyActivity extends AppCompatActivity implements GamesLobbyV
             String[] parts = gameStr.split(",");
             if (parts.length < 3) continue;
 
-            String gameName = parts[0]; // perno mono to onoma
-            int stars = Integer.parseInt(parts[2]); // perno asteria
+            String gameName = parts[0]; // pernei mono to onoma
+            int stars = Integer.parseInt(parts[2]); // pernei ta asteria
 
             Button btnGame = new Button(this);
             btnGame.setText("PLAY " + gameName + " (" + stars + " Stars)");
             btnGame.setTextSize(18f);
 
-            // kena gia koybia
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT

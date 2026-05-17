@@ -5,11 +5,11 @@ public class HomescreenPresenter {
     public HomescreenPresenter(HomescreenView view) {
         this.view = view;
     }
-    public void onPlayer(String username) {
-        if (username == null || username.trim().isEmpty()) {
-            view.showError("Please enter your username");
+    public void onPlayer(String username, String password) {
+        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+            view.showError("Please enter your username and password");
             return;
         }
-        view.playerLogin(username);
+        view.playerLogin(username, password);
     }
 }

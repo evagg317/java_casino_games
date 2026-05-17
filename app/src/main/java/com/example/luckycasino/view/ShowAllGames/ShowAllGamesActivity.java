@@ -1,4 +1,5 @@
 package com.example.luckycasino.view.ShowAllGames;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,83 +10,60 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.luckycasino.R;
 import com.example.luckycasino.view.PlaceBet.PlaceBetActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
-
-/**
- * Η GamesLobbyActivity εμφανίζει τη λίστα παιχνιδιών με δυνατότητα φιλτραρίσματος.
- * Υλοποιεί το GamesLobbyView και επικοινωνεί με τον GamesLobbyPresenter.
- * Ακολουθεί το αρχιτεκτονικό πρότυπο MVP (Model-View-Presenter).
- */
+//GamesLobbyActivity emfanizei ti lista me ta paixnidia
+//ylopoiei to GamesLobbyView kai epikoinonei me ton GamesLobbyPresenter
 public class ShowAllGamesActivity extends AppCompatActivity implements ShowAllGamesView {
-
     private ShowAllGamesPresenter presenter;
-
-    // φίλτρα
-    private EditText    etMinStars;
-    private Spinner     spinnerBetCategory;
-    private Spinner     spinnerRiskLevel;
-    private Button      btnFilter;
-    private Button      btnShowAll;
+    //filtra
+    private EditText etMinStars;
+    private Spinner spinnerBetCategory;
+    private Spinner spinnerRiskLevel;
+    private Button btnFilter;
+    private Button btnShowAll;
     private ProgressBar progressBar;
-
-    // λίστα παιχνιδιών — dynamically created buttons
     private LinearLayout gamesContainer;
-
     private String customerId;
 
-    // αποθηκεύει τα raw strings των παιχνιδιών
+    //apothikeyei ta raw strings ton paixnidion
     private List<String> currentGames = new ArrayList<>();
 
-    /**
-     * Μέθοδος που καλείται κατά τη δημιουργία της δραστηριότητας.
-     * Αρχικοποιεί το UI και τον presenter.
-     * @param savedInstanceState Το αποθηκευμένο state της δραστηριότητας
-     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_all_games);
 
-        // παίρνει το username από το HomescreenActivity
+        //pairnei to username apo to homescreenactivity
         customerId = getIntent().getStringExtra("customer_id");
 
-        // αρχικοποίηση presenter
         presenter = new ShowAllGamesPresenter(this);
 
-        // αρχικοποίηση UI στοιχείων
-        etMinStars         = findViewById(R.id.et_min_stars);
+        etMinStars = findViewById(R.id.et_min_stars);
         spinnerBetCategory = findViewById(R.id.spinner_bet_category);
-        spinnerRiskLevel   = findViewById(R.id.spinner_risk_level);
-        btnFilter          = findViewById(R.id.btn_filter);
-        btnShowAll         = findViewById(R.id.btn_show_all);
-        progressBar        = findViewById(R.id.progress_bar);
-        gamesContainer     = findViewById(R.id.games_container);
+        spinnerRiskLevel = findViewById(R.id.spinner_risk_level);
+        btnFilter = findViewById(R.id.btn_filter);
+        btnShowAll = findViewById(R.id.btn_show_all);
+        progressBar = findViewById(R.id.progress_bar);
+        gamesContainer = findViewById(R.id.games_container);
 
-        // Spinner για betCategory
-        ArrayAdapter<String> betAdapter = new ArrayAdapter<>(spinnerBetCategory.getContext(),
-                android.R.layout.simple_spinner_item,
-                new String[]{"Any", "$", "$$", "$$$"});
+        //spinner gia betCategory
+        ArrayAdapter<String> betAdapter = new ArrayAdapter<>(spinnerBetCategory.getContext(), android.R.layout.simple_spinner_item, new String[]{"Any", "$", "$$", "$$$"});
         betAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBetCategory.setAdapter(betAdapter);
 
-        // Spinner για riskLevel
-        ArrayAdapter<String> riskAdapter = new ArrayAdapter<>(spinnerRiskLevel.getContext(),
-                android.R.layout.simple_spinner_item,
-                new String[]{"Any", "low", "medium", "high"});
+        //spinner gia riskLevel
+        ArrayAdapter<String> riskAdapter = new ArrayAdapter<>(spinnerRiskLevel.getContext(), android.R.layout.simple_spinner_item, new String[]{"Any", "low", "medium", "high"});
         riskAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRiskLevel.setAdapter(riskAdapter);
 
-        // κουμπί φιλτραρίσματος
+        //koumpi gia to filtrarisma
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +84,7 @@ public class ShowAllGamesActivity extends AppCompatActivity implements ShowAllGa
             }
         });
 
-        // κουμπί εμφάνισης όλων
+        //koumpi gia emfanisi olon ton paixnidion
         btnShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,15 +99,12 @@ public class ShowAllGamesActivity extends AppCompatActivity implements ShowAllGa
             }
         });
 
-        // φορτώνει όλα τα παιχνίδια κατά την εκκίνηση
+        //fortonei ola ta paixnidia kata tin ekkinisi
         progressBar.setVisibility(View.VISIBLE);
         presenter.loadAllGames();
     }
 
-    /**
-     * Εμφανίζει ένα μήνυμα λάθους στον χρήστη.
-     * @param message Το μήνυμα προς εμφάνιση
-     */
+
     @Override
     public void showError(String message) {
         runOnUiThread(new Runnable() {
@@ -143,11 +118,8 @@ public class ShowAllGamesActivity extends AppCompatActivity implements ShowAllGa
         });
     }
 
-    /**
-     * Ορίζει τη λίστα παιχνιδιών και δημιουργεί κουμπιά για κάθε παιχνίδι.
-     * Κάθε κουμπί οδηγεί στο PlaceBetActivity.
-     * @param games Η λίστα με τα raw strings των παιχνιδιών
-     */
+   //orizei th lista paixnidion kai dimiourgei koumpia gia kathe paixnidi
+   //kathe koumpi odhgei sto PlaceBetActivity
     @Override
     public void setGameList(List<String> games) {
         runOnUiThread(new Runnable() {
@@ -164,7 +136,7 @@ public class ShowAllGamesActivity extends AppCompatActivity implements ShowAllGa
                     return;
                 }
 
-                // dimiourgei koumpi gia kathe paixnidi
+                //dimiourgei koumpi gia kathe paixnidi
                 for (String gameStr : games) {
                     String[] parts = gameStr.split(",");
                     if (parts.length < 6) continue;
@@ -180,36 +152,20 @@ public class ShowAllGamesActivity extends AppCompatActivity implements ShowAllGa
                     final String finalGameName = gameName;
                     final int finalStars = stars;
 
-                    // card layout
+                    //card layout
                     LinearLayout card = new LinearLayout(ShowAllGamesActivity.this);
                     card.setOrientation(LinearLayout.VERTICAL);
                     card.setPadding(24, 24, 24, 24);
                     card.setBackgroundColor(0xFF1E1E2E);
 
-                    LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
+                    LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     cardParams.setMargins(0, 0, 0, 24);
                     card.setLayoutParams(cardParams);
-
-                    // τίτλος παιχνιδιού
-                    //android.widget.TextView txtName = new android.widget.TextView(ShowAllGamesActivity.this);
-                    //txtName.setText(gameName);
-                    //txtName.setTextSize(18f);
-                    //txtName.setTextColor(0xFFFFFFFF);
-                    //txtName.setPadding(0, 0, 0, 8);
-                    //card.addView(txtName);
-
-                    // orizontio header kai asteria
 
                     //(LinearLayout)
                     LinearLayout headerLayout = new LinearLayout(ShowAllGamesActivity.this);
                     headerLayout.setOrientation(LinearLayout.HORIZONTAL);
-                    headerLayout.setLayoutParams(new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    ));
+                    headerLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                     headerLayout.setGravity(android.view.Gravity.CENTER_VERTICAL);
                     headerLayout.setPadding(0, 0, 0, 8);
 
@@ -218,11 +174,10 @@ public class ShowAllGamesActivity extends AppCompatActivity implements ShowAllGa
                     txtName.setText(finalGameName);
                     txtName.setTextSize(20f);
                     txtName.setTextColor(0xFFFFFFFF);
-                    txtName.setTypeface(null, android.graphics.Typeface.BOLD); // Κάντο πιο έντονο να ξεχωρίζει
+                    txtName.setTypeface(null, android.graphics.Typeface.BOLD);
 
                     // layout_weight=1.0f gia topothesia asterion
-                    LinearLayout.LayoutParams nameParams = new LinearLayout.LayoutParams(
-                            0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f
+                    LinearLayout.LayoutParams nameParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f
                     );
                     txtName.setLayoutParams(nameParams);
                     headerLayout.addView(txtName);
@@ -268,7 +223,7 @@ public class ShowAllGamesActivity extends AppCompatActivity implements ShowAllGa
 
                     card.addView(headerLayout);
 
-                    // πληροφορίες
+                    //info
                     android.widget.TextView txtInfo = new android.widget.TextView(ShowAllGamesActivity.this);
                     txtInfo.setText(provider + "  |  ★" + stars + "  |  " + betCategory + "  |  Risk: " + riskLevel + "  |  Min Bet: " + minBet);
                     txtInfo.setTextSize(13f);
@@ -276,27 +231,23 @@ public class ShowAllGamesActivity extends AppCompatActivity implements ShowAllGa
                     txtInfo.setPadding(0, 0, 0, 16);
                     card.addView(txtInfo);
 
-                    // κουμπί PLAY
                     Button btnPlay = new Button(ShowAllGamesActivity.this);
                     btnPlay.setText("PLAY");
                     btnPlay.setTextColor(0xFFFFFFFF);
                     btnPlay.setBackgroundColor(0xFF0A3C0B);
 
-                    LinearLayout.LayoutParams btnParams = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
+                    LinearLayout.LayoutParams btnParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     btnPlay.setLayoutParams(btnParams);
 
-                    // πηγαίνει στο PlaceBetActivity
+                    //pigainei sto PlaceBetActivity
                     btnPlay.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(ShowAllGamesActivity.this, PlaceBetActivity.class);
                             intent.putExtra("customer_id", customerId);
-                            intent.putExtra("game_name",   finalGameName);
-                            intent.putExtra("game_stars",  finalStars);
-                            intent.putExtra("game_logo",   finalGameName.toLowerCase());
+                            intent.putExtra("game_name", finalGameName);
+                            intent.putExtra("game_stars", finalStars);
+                            intent.putExtra("game_logo", finalGameName.toLowerCase());
                             startActivity(intent);
                         }
                     });

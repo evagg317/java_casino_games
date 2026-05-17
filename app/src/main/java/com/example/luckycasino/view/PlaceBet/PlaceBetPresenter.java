@@ -29,18 +29,18 @@ public class PlaceBetPresenter {
         try {
             double betAmount = Double.parseDouble(betAmountStr);
 
-            // trexo diktio se ksexoristo thread
+            //trexei se ksexoristo thread
             new Thread(() -> {
                 try {
                     Request req = new Request(Request.PLAY, playerId, gameName, betAmount);
 
-                    // stelno meso tcp
+                    //stelnei meso tcp
                     TCP tcpClient = new TCP();
                     String rawResponse = tcpClient.sendRequest(req.serialize());
 
                     Response resp = Response.deserialize(rawResponse);
 
-                    // stelno apotelesma piso sto View
+                    //stelnei to apotelesma piso sto View
                     if (resp.isSuccess()) {
                         view.showResult(resp.getMessage());
                     } else {

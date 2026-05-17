@@ -36,7 +36,7 @@ public class PlaceBetActivity extends AppCompatActivity implements PlaceBetView 
         btnPlaceBet = findViewById(R.id.btn_place_bet);
         txtResult = findViewById(R.id.txt_result);
 
-        //perno dedomena apo proigoumeni othoni
+        //pernei dedomena apo proigoumeni othoni
         customerId = getIntent().getStringExtra("customer_id");
         gameName = getIntent().getStringExtra("game_name");
         int stars = getIntent().getIntExtra("game_stars", 0);
@@ -65,7 +65,7 @@ public class PlaceBetActivity extends AppCompatActivity implements PlaceBetView 
 
     @Override
     public void showResult(String message) {
-        // girnao sto kentriko thread
+        //girnaei sto kentriko thread
         runOnUiThread(() -> {
             txtResult.setText(message);
         });
