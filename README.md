@@ -24,9 +24,9 @@ This sequence works only if you use one computer. If you want to use more you mu
 
 Start the components in separate terminal windows in the following order:
 
-Step 1: java src.SRGServer 9090
+Step 1: '''java src.SRGServer 9090'''
 
-Step 2: java src.ReducerMain 6000
+Step 2: '''java src.ReducerMain 6000'''
 
 Step 3: e.g. for three workers
 ```
@@ -35,11 +35,13 @@ java src.WorkerMain 1 8082 3 games/json localhost 9090
 java src.WorkerMain 2 8083 3 games/json localhost 9090
 ```
 
-Step 4: java src.MasterMain 8080 3 localhost 6000 localhost 8081 localhost 8082 localhost 8083
+Step 4: ''' java src.MasterMain 8080 3 localhost 6000 localhost 8081 localhost 8082 localhost 8083 '''
 
 Step 5: Launch the Clients
+'''
 java src.ManagerApp localhost (to load new JSON games into the system)
 java src.PlayerApp localhost
+'''
 
 ### 2. Start the Android Client
 1. Open the repository root folder in **Android Studio**.
