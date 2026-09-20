@@ -29,10 +29,11 @@ Step 1: java src.SRGServer 9090
 Step 2: java src.ReducerMain 6000
 
 Step 3: e.g. for three workers
-```bash
+```
 java src.WorkerMain 0 8081 3 games/json localhost 9090
 java src.WorkerMain 1 8082 3 games/json localhost 9090
 java src.WorkerMain 2 8083 3 games/json localhost 9090
+```
 
 Step 4: java src.MasterMain 8080 3 localhost 6000 localhost 8081 localhost 8082 localhost 8083
 
