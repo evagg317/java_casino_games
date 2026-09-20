@@ -24,7 +24,7 @@ This sequence works only if you use one computer. If you want to use more you mu
 
 Start the components in separate terminal windows in the following order:
 
-Step 1: '''java src.SRGServer 9090'''
+Step 1: ```java src.SRGServer 9090```
 
 Step 2: '''java src.ReducerMain 6000'''
 
