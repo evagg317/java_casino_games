@@ -5,7 +5,6 @@ import android.widget.EditText;
 
 import com.example.luckycasino.view.ShowAllGames.ShowAllGamesActivity;
 
-import com.example.luckycasino.view.GamesLobby.GamesLobbyActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.luckycasino.R;

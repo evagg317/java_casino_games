@@ -108,7 +108,6 @@ public class ShowAllGamesPresenter {
     public void rateGame(String customerId, String gameName, int stars) {
         new Thread(() -> {
             try {
-                // Χρησιμοποιούμε τον Constructor που έχεις ήδη φτιάξει!
                 Request req = new Request(Request.RATE_GAME, customerId, gameName, stars);
 
                 TCP tcp = new TCP();

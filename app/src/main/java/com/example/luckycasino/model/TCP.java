@@ -5,7 +5,8 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 
 public class TCP {
-    public static final String MASTER_HOST = "192.168.1.84";
+   public static final String MASTER_HOST = "10.26.14.201";
+//public static final String MASTER_HOST = "10.0.2.2";
     private static final int MASTER_PORT = 8080;
 
     //stelnei serialized request ston master
