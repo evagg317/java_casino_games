@@ -18,7 +18,7 @@ The distributed environment consists of the following nodes cooperating in real-
 
 ## How to Run
 ### 1. Start the Backend
-Navigate to the `Backend_Code` directory, compile the Java files, and start the nodes in **separate terminal windows** in the following strict order:
+Go to the `Backend_Code` directory, compile the Java files, and start the nodes in **separate terminal windows** in the following strict order:
 Since this is a distributed system, the components must be started in a specific sequence.
 This sequence works only if you use one computer. If you want to use more you must use the right IP address for each "localhost"
 
@@ -28,7 +28,8 @@ Step 1: java src.SRGServer 9090
 
 Step 2: java src.ReducerMain 6000
 
-Step 3: e.g. for three workers 
+Step 3: e.g. for three workers
+```bash
 java src.WorkerMain 0 8081 3 games/json localhost 9090
 java src.WorkerMain 1 8082 3 games/json localhost 9090
 java src.WorkerMain 2 8083 3 games/json localhost 9090
