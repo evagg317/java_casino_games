@@ -1,0 +1,11 @@
+{
+  "GameName": "Slots",
+  "ProviderName": "provider3",
+  "Stars": 4,
+  "NoOfVotes": 100,
+  "GameLogo": "/logos/slot.png",
+  "MinBet": 0.1,
+  "MaxBet": 10,
+  "RiskLevel": "low",
+  "HashKey": "secret4"
+}
