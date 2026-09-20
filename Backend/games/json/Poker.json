@@ -1,0 +1,11 @@
+{
+  "GameName": "Poker",
+  "ProviderName": "provider1",
+  "Stars": 3,
+  "NoOfVotes": 1,
+  "GameLogo": "/logos/Poker.png",
+  "MinBet": 0.5,
+  "MaxBet": 15,
+  "RiskLevel": "medium",
+  "HashKey": "secret2"
+}
